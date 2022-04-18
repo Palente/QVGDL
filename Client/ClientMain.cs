@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CitizenFX.Core;
 
 using LemonUI;
+using LemonUI.Menus;
 
 using static CitizenFX.Core.Native.API;
 
@@ -69,13 +70,61 @@ namespace QVGDL.Client
                 _isPlaying = true;
 
             }
-            TriggerServerEvent("qvgdl:client_start");
+            TriggerServerEvent("qvgdl:ask_start");
+        }
+        [EventHandler("qvgdl:respond_start")]
+        public void Respond_Start(int nb_question)
+        {
+
         }
         [EventHandler("qvgdl:receive_question")]
         public void ReceiveDatas(string question,string rep1, string rep2, string rep3, string rep4, int bonneRep)
         {
             Debug.WriteLine("Received Receive_Question");
-            TriggerServerEvent("qvgdl:client_broad_notif", $"{GetPlayerName(PlayerId())} a gagné!");
+            NativeMenu menu = new NativeMenu("Qui Veux Gagner De L'Argent", question);
+            var item1 = new NativeItem("Réponse 1", rep1, "~f~>>>");
+            var item2 = new NativeItem("Réponse 2", rep2, "~f~>>>");
+            var item3 = new NativeItem("Réponse 3", rep3, "~f~>>>");
+            var item4 = new NativeItem("Réponse 4", rep4, "~f~>>>");
+            // WHAT A CODEEEEEEEEEEE LOOOOL
+            item1.Activated += (sender, e) =>
+            {
+                if(bonneRep == 0)
+                {
+                    menu.Visible = false;
+                    TriggerServerEvent("qvgdl:client_broad_notif", $"{GetPlayerName(PlayerId())} a gagné!");
+                }
+            };
+            item2.Activated += (sender, e) =>
+            {
+                if (bonneRep == 1)
+                {
+                    menu.Visible = false;
+                    TriggerServerEvent("qvgdl:client_broad_notif", $"{GetPlayerName(PlayerId())} a gagné!");
+                }
+            };
+            item3.Activated += (sender, e) =>
+            {
+                if (bonneRep == 2)
+                {
+                    menu.Visible = false;
+                    TriggerServerEvent("qvgdl:client_broad_notif", $"{GetPlayerName(PlayerId())} a gagné!");
+                }
+            };
+            item4.Activated += (sender, e) =>
+            {
+                if (bonneRep == 3)
+                {
+                    menu.Visible = false;
+                    TriggerServerEvent("qvgdl:client_broad_notif", $"{GetPlayerName(PlayerId())} a gagné!");
+                }
+            };
+            menu.Add(item1);
+            menu.Add(item2);
+            menu.Add(item3);
+            menu.Add(item4);
+            _Pool.Add(menu);
+            menu.Visible = true;
             //SendNotification($"Le vainqueur est: {GetPlayerName(PlayerId())}");
             //Format Data
             //QUESTION;rep 1; rep2; rep 3; rep 4; int bonne rep(0-3)
@@ -92,5 +141,10 @@ namespace QVGDL.Client
         {
             SendNotification(text);
         }
+    }
+    public class ClientGame
+    {
+        public int TotalQuestion { get; set; } = 0;
+
     }
 }

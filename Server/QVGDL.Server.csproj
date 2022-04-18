@@ -8,8 +8,17 @@
   
     <ItemGroup>
       <PackageReference Include="CitizenFX.Core.Server" Version="1.0.*" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   
       <Compile Include="../Shared/**/*.cs" />
+    </ItemGroup>
+  
+    <ItemGroup>
+      <None Remove="questions.json" />
+    </ItemGroup>
+  
+    <ItemGroup>
+      <Resource Include="questions.json" />
     </ItemGroup>
 </Project>
   

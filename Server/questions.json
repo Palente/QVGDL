@@ -1,0 +1,12 @@
+[
+  {
+    "question": "Qu'est ce qui est jaune et qui attend?",
+    "reponses": [ "Ganni", "Ayzrix", "Johnatan", "Feur" ],
+    "rep": 2
+  },
+  { 
+    "question": "Qu'est ce qui n'existera jamais parmis cette liste'?",
+    "reponses": [ "Nitro V4", "LePen présidente", "pizza avec de l'ananas'", "MalikGaming92" ],
+    "rep": 0
+  }
+]
